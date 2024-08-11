@@ -1,0 +1,24 @@
+/* .container-wrap {
+    height: 300px;
+    width: 300px;
+    padding: 10px;
+    border: solid 1px #000;
+} */
+
+
+.container {
+    height: 300px;
+    width: 300px;
+    padding: 10px;
+    border: solid 1px #000;
+    position: relative;
+    overflow: hidden;
+}
+
+.ball {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%; /* Perfect circle */
+    background-color: #f00;
+    position: absolute;
+}
