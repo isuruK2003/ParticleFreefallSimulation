@@ -7,10 +7,43 @@
     <link rel="stylesheet" href="myStyles.css">
 </head>
 <body>
-    <div class="container">
-        <!-- The ball will be added here dynamically -->
+    <div class="interface">
+        <div class="container">
+            <!-- The ball will be added here dynamically -->
+        </div>
+        <div class="controls">
+            <div class="control-adjusments">
+                <div class="labels">
+                    <label for="start_position">Start Position</label>
+                    <label for="ball_count">Ball Count</label>
+                    <label for="ball_size">Ball size</label>
+                    <label for="gravity">Gravity</label>
+                    <label for="max_height">Max Height</label>
+                </div>
+                <div class="inputs">
+                    <select name="start_position" id="start_position">
+                        <option value="random">Random</option>
+                        <option value="diagonally">Diagonally</option>
+                        <option value="horizontally">Horizontally</option>
+                    </select>
+                    <input type="range" id="ball_count">
+                    <input type="range" id="ball_size">
+                    <input type="range" id="gravity">
+                    <input type="range" id="max_height">
+                </div>
+                <div class="values">
+                    <span></span>
+                    <span id="ball_count_value"></span>
+                    <span id="ball_size_value"></span>
+                    <span id="gravity_value"></span>
+                    <span id="max_height_value"></span>
+                </div>
+            </div>
+            <div class="control-buttons">
+                <button id="start">Start</button>
+            </div>
+        </div>
     </div>
-    <button id="start">Start</button>
     <script src="main.js"></script>
 </body>
 </html>

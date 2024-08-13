@@ -20,7 +20,7 @@ function moveBall(id, dx, dy) {
 function updatePosition(id, vmax) {
     let vy = 0;
     let loss = 0.1;
-    var ay = -0.1;
+    var ay = -0.1 * (parseFloat(document.getElementById("gravity").value) / 50);
 
     function update() {
         let animationId = requestAnimationFrame(update);
@@ -58,21 +58,40 @@ function move_all_once(balls, vmax) {
 }
 
 function move(balls, vmax) {
-    move_with_delay(balls, vmax);
-    // move_all_once(balls, vmax);
+    // move_with_delay(balls, vmax);
+    move_all_once(balls, vmax);
 }
 
-document.addEventListener("DOMContentLoaded", function() {
-    var balls = [];
+var balls = [];
+var ball_count = 50
 
-    for (let i = 0; i < 100; i += 2) {
-        let x = Math.floor((Math.random() * 100));
-        let y = Math.floor((Math.random() * 100));
+let ball_count_elem = document.getElementById("ball_count")
+ball_count_elem.addEventListener("change", function() {
+    ball_count = ball_count_elem.value;
+    make_balls();
+})
+
+function make_balls() {
+    document.getElementsByClassName("container")[0].innerHTML = "";
+    balls = [];
+    let start_position = document.getElementById("start_position").value;
+
+    for (let i = 0; i < ball_count; i++) {
+        let x = 4 * i;
+        let y = i;
+
+        if (start_position == "random") {
+            x = Math.floor((Math.random() * 100));
+            y = Math.floor((Math.random() * 100));
+        }
         balls.push(`b${i}`);
         makeBall(`b${i}`, x, y);
     }
+}
 
+document.addEventListener("DOMContentLoaded", function() {
     document.getElementById("start").addEventListener("click", function() {
         move(balls, 4);
     });
+    make_balls();
 });
