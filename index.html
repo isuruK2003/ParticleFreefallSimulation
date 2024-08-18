@@ -15,34 +15,21 @@
         </div>
         <div class="controls">
             <div class="control-adjusments">
-                <div class="labels">
-                    <label for="start_position">Start Position</label>
+                <div class="control-adjusments-row">
                     <label for="particle_count">Particle Count</label>
-                    <!-- <label for="particle_size">particle size</label> -->
-                    <label for="gravity">Gravity</label>
-                    <!-- <label for="max_height">Max Height</label> -->
-                </div>
-                <div class="inputs">
-                    <select name="start_position" id="start_position">
-                        <option value="random">Random</option>
-                        <option value="diagonally">Diagonally</option>
-                        <option value="horizontally">Horizontally</option>
-                    </select>
                     <input type="range" id="particle_count">
-                    <!-- <input type="range" id="particle_size"> -->
-                    <input type="range" id="gravity">
-                    <!-- <input type="range" id="max_height"> -->
-                </div>
-                <div class="values">
-                    <span></span>
                     <span id="particle_count_value"></span>
-                    <!-- <span id="particle_size_value"></span> -->
+                </div>
+                <div class="control-adjusments-row">
+                    <label for="gravity">Gravity</label>
+                    <input type="range" id="gravity">
                     <span id="gravity_value"></span>
-                    <!-- <span id="max_height_value"></span> -->
                 </div>
             </div>
             <div class="control-buttons">
                 <button id="start">Start</button>
+                <button id="stop">Stop</button>
+                <button id="rearrange">Rearrange</button>                
             </div>
         </div>
     </div>

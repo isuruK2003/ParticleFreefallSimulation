@@ -1,31 +1,47 @@
+let particles = [];
+let particleCount = 50;
+let animationIds = [];
+
+const particleCountElem = document.getElementById("particle_count");
+
+particleCountElem.addEventListener("change", () => {
+    particleCount = particleCountElem.value;
+    makeParticles();
+});
+
 function makeParticle(id, x, y) {
-    let particle = document.createElement("div");
+    const particle = document.createElement("div");
     particle.id = id;
     particle.className = "particle";
-    particle.style.left = x + "%";
-    particle.style.bottom = y + "%";
-    document.getElementsByClassName("container")[0].appendChild(particle);
+    particle.style.left = `${x}%`;
+    particle.style.bottom = `${y}%`;
+    document.querySelector(".container").appendChild(particle);
 }
 
 function moveParticle(id, dx, dy) {
-    let particle = document.getElementById(id);
+    const particle = document.getElementById(id);
+    const left = parseFloat(particle.style.left);
+    const bottom = parseFloat(particle.style.bottom);
 
-    let left = parseFloat(particle.style.left);
-    let bottom = parseFloat(particle.style.bottom);
-
-    particle.style.left = (left + dx) + "%";
-    particle.style.bottom = (bottom + dy) + "%";
+    particle.style.left = `${left + dx}%`;
+    particle.style.bottom = `${bottom + dy}%`;
 }
 
-function updatePosition(id, vmax) {
+function updatePosition(id) {
     let vy = 0;
-    let loss = 0.1;
-    var ay = -0.1 * (parseFloat(document.getElementById("gravity").value) / 50);
+    const loss = 0.1;
+    const ay = -0.1 * (parseFloat(document.getElementById("gravity").value) / 50);
+
+    const particleElem = document.getElementById(id);
+    const particleBottom = parseFloat(particleElem.style.bottom);
+    let vmax = Math.sqrt(Math.abs(2 * ay * particleBottom));
 
     function update() {
-        let animationId = requestAnimationFrame(update);
+        const animationId = requestAnimationFrame(update);
+        animationIds.push(animationId);
         vy += ay;
-        let particleBottom = parseFloat(document.getElementById(id).style.bottom);
+        const particleBottom = parseFloat(particleElem.style.bottom);
+
         if (particleBottom <= 0) {
             vy = vmax;
             vmax -= loss;
@@ -35,63 +51,67 @@ function updatePosition(id, vmax) {
         }
         moveParticle(id, 0, vy);
     }
+
     update();
 }
 
-function move_with_delay(particles, vmax) {
-    let i = 0;
-    let id = setInterval(frame, 50);
-    function frame() {
-        if (i == particles.length) {
-            clearInterval(id);
-        } else {
-            updatePosition(particles[i], vmax);
-            i++;
-        }
-    }
-}
-
-function move_all_once(particles, vmax) {
+function moveAllOnce(particles) {
     particles.forEach(particle => {
-        updatePosition(particle, vmax);
+        updatePosition(particle);
     });
 }
 
-function move(particles, vmax) {
-    // move_with_delay(particles, vmax);
-    move_all_once(particles, vmax);
+function move(particles) {
+    updateControlsAbility(true); // Disable controls when the animation starts
+    moveAllOnce(particles);
 }
 
-var particles = [];
-var particle_count = 50
-
-let particle_count_elem = document.getElementById("particle_count")
-particle_count_elem.addEventListener("change", function () {
-    particle_count = particle_count_elem.value;
-    make_particles();
-})
-
-function make_particles() {
-    document.getElementsByClassName("container")[0].innerHTML = "";
+function makeParticles() {
+    document.querySelector(".container").innerHTML = "";
     particles = [];
-    let start_position = document.getElementById("start_position").value;
 
-    for (let i = 0; i < particle_count; i++) {
-        let x = 4 * i;
-        let y = i;
+    for (let i = 0; i < particleCount; i++) {
+        const x = Math.floor(Math.random() * 100);
+        const y = Math.floor(Math.random() * 100);
 
-        if (start_position == "random") {
-            x = Math.floor((Math.random() * 100));
-            y = Math.floor((Math.random() * 100));
-        }
         particles.push(`b${i}`);
         makeParticle(`b${i}`, x, y);
     }
 }
 
-document.addEventListener("DOMContentLoaded", function () {
-    document.getElementById("start").addEventListener("click", function () {
-        move(particles, 4);
+function stopAnimations() {
+    animationIds.forEach(id => cancelAnimationFrame(id));
+    animationIds = [];
+    updateControlsAbility(false); // Enable controls when the animation stops
+}
+
+function rearrangeParticles() {
+    stopAnimations();
+    makeParticles();
+}
+
+function updateControlsAbility(disable) {
+    let controls = document.getElementsByTagName("input");
+    for (let control of controls) {
+        if (control.type !== "range") {
+            continue;
+        }
+        control.disabled = disable;
+    }
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    document.getElementById("start").addEventListener("click", () => {
+        move(particles);
     });
-    make_particles();
+
+    document.getElementById("stop").addEventListener("click", () => {
+        stopAnimations();
+    });
+
+    document.getElementById("rearrange").addEventListener("click", () => {
+        rearrangeParticles();
+    });
+
+    makeParticles();
 });
