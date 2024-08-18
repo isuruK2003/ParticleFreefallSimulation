@@ -1,24 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ball Drop</title>
+    <title>Particle Drop</title>
     <link rel="stylesheet" href="myStyles.css">
 </head>
+
 <body>
     <div class="interface">
         <div class="container">
-            <!-- The ball will be added here dynamically -->
+            <!-- The particle will be added here dynamically -->
         </div>
         <div class="controls">
             <div class="control-adjusments">
                 <div class="labels">
                     <label for="start_position">Start Position</label>
-                    <label for="ball_count">Ball Count</label>
-                    <label for="ball_size">Ball size</label>
+                    <label for="particle_count">Particle Count</label>
+                    <!-- <label for="particle_size">particle size</label> -->
                     <label for="gravity">Gravity</label>
-                    <label for="max_height">Max Height</label>
+                    <!-- <label for="max_height">Max Height</label> -->
                 </div>
                 <div class="inputs">
                     <select name="start_position" id="start_position">
@@ -26,17 +28,17 @@
                         <option value="diagonally">Diagonally</option>
                         <option value="horizontally">Horizontally</option>
                     </select>
-                    <input type="range" id="ball_count">
-                    <input type="range" id="ball_size">
+                    <input type="range" id="particle_count">
+                    <!-- <input type="range" id="particle_size"> -->
                     <input type="range" id="gravity">
-                    <input type="range" id="max_height">
+                    <!-- <input type="range" id="max_height"> -->
                 </div>
                 <div class="values">
                     <span></span>
-                    <span id="ball_count_value"></span>
-                    <span id="ball_size_value"></span>
+                    <span id="particle_count_value"></span>
+                    <!-- <span id="particle_size_value"></span> -->
                     <span id="gravity_value"></span>
-                    <span id="max_height_value"></span>
+                    <!-- <span id="max_height_value"></span> -->
                 </div>
             </div>
             <div class="control-buttons">
@@ -46,4 +48,5 @@
     </div>
     <script src="main.js"></script>
 </body>
+
 </html>

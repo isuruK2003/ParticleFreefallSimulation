@@ -1,20 +1,20 @@
-function makeBall(id, x, y) {
-    let ball = document.createElement("div");
-    ball.id = id;
-    ball.className = "ball";
-    ball.style.left = x + "%";
-    ball.style.bottom = y + "%";
-    document.getElementsByClassName("container")[0].appendChild(ball);
+function makeParticle(id, x, y) {
+    let particle = document.createElement("div");
+    particle.id = id;
+    particle.className = "particle";
+    particle.style.left = x + "%";
+    particle.style.bottom = y + "%";
+    document.getElementsByClassName("container")[0].appendChild(particle);
 }
 
-function moveBall(id, dx, dy) {
-    let ball = document.getElementById(id);
+function moveParticle(id, dx, dy) {
+    let particle = document.getElementById(id);
 
-    let left = parseFloat(ball.style.left);
-    let bottom = parseFloat(ball.style.bottom);
+    let left = parseFloat(particle.style.left);
+    let bottom = parseFloat(particle.style.bottom);
 
-    ball.style.left = (left + dx) + "%";
-    ball.style.bottom = (bottom + dy) + "%";
+    particle.style.left = (left + dx) + "%";
+    particle.style.bottom = (bottom + dy) + "%";
 }
 
 function updatePosition(id, vmax) {
@@ -25,58 +25,58 @@ function updatePosition(id, vmax) {
     function update() {
         let animationId = requestAnimationFrame(update);
         vy += ay;
-        let ballBottom = parseFloat(document.getElementById(id).style.bottom);
-        if (ballBottom <= 0) {
+        let particleBottom = parseFloat(document.getElementById(id).style.bottom);
+        if (particleBottom <= 0) {
             vy = vmax;
             vmax -= loss;
         }
         if (vmax <= 0) {
             cancelAnimationFrame(animationId);
         }
-        moveBall(id, 0, vy);        
+        moveParticle(id, 0, vy);
     }
     update();
 }
 
-function move_with_delay(balls, vmax) {
+function move_with_delay(particles, vmax) {
     let i = 0;
     let id = setInterval(frame, 50);
     function frame() {
-        if (i == balls.length) {
+        if (i == particles.length) {
             clearInterval(id);
         } else {
-            updatePosition(balls[i], vmax);
+            updatePosition(particles[i], vmax);
             i++;
         }
     }
 }
 
-function move_all_once(balls, vmax) {
-    balls.forEach(ball => {
-        updatePosition(ball, vmax);
+function move_all_once(particles, vmax) {
+    particles.forEach(particle => {
+        updatePosition(particle, vmax);
     });
 }
 
-function move(balls, vmax) {
-    // move_with_delay(balls, vmax);
-    move_all_once(balls, vmax);
+function move(particles, vmax) {
+    // move_with_delay(particles, vmax);
+    move_all_once(particles, vmax);
 }
 
-var balls = [];
-var ball_count = 50
+var particles = [];
+var particle_count = 50
 
-let ball_count_elem = document.getElementById("ball_count")
-ball_count_elem.addEventListener("change", function() {
-    ball_count = ball_count_elem.value;
-    make_balls();
+let particle_count_elem = document.getElementById("particle_count")
+particle_count_elem.addEventListener("change", function () {
+    particle_count = particle_count_elem.value;
+    make_particles();
 })
 
-function make_balls() {
+function make_particles() {
     document.getElementsByClassName("container")[0].innerHTML = "";
-    balls = [];
+    particles = [];
     let start_position = document.getElementById("start_position").value;
 
-    for (let i = 0; i < ball_count; i++) {
+    for (let i = 0; i < particle_count; i++) {
         let x = 4 * i;
         let y = i;
 
@@ -84,14 +84,14 @@ function make_balls() {
             x = Math.floor((Math.random() * 100));
             y = Math.floor((Math.random() * 100));
         }
-        balls.push(`b${i}`);
-        makeBall(`b${i}`, x, y);
+        particles.push(`b${i}`);
+        makeParticle(`b${i}`, x, y);
     }
 }
 
-document.addEventListener("DOMContentLoaded", function() {
-    document.getElementById("start").addEventListener("click", function() {
-        move(balls, 4);
+document.addEventListener("DOMContentLoaded", function () {
+    document.getElementById("start").addEventListener("click", function () {
+        move(particles, 4);
     });
-    make_balls();
+    make_particles();
 });
