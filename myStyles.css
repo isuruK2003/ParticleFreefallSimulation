@@ -61,7 +61,7 @@ select {
     background-image: url('bg/cricket-ball.png');
     background-position: center;
     background-size: cover;
-    /* border: 0.5px solid #ffdcdc; */
+    border: 1px solid #333;
 }
 
 /* Controls Section */
