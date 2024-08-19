@@ -45,20 +45,23 @@ select {
 }
 
 .bg-orange {background-color: #f80;}
-.bg-red {background-color: #fa8570;}
+.bg-black {
+    background-color: #333;
+    border: 1px solid #fff;
+}
 .bg-green {background-color: #0ea60e;}
 .bg-blue {background-color: rgb(76, 128, 223);}
 .bg-tennis {
     background-image: url('bg/tennis-ball.png');
     background-position: center;
     background-size: cover;
-    border: 1px solid #eee;
+    border: 1px solid #33333375;
 }
 .bg-cricket {
     background-image: url('bg/cricket-ball.png');
     background-position: center;
     background-size: cover;
-    border: 0.5px solid #ffdcdc;
+    /* border: 0.5px solid #ffdcdc; */
 }
 
 /* Controls Section */
