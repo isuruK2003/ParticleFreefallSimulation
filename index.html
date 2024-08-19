@@ -16,14 +16,33 @@
         <div class="controls">
             <div class="control-adjusments">
                 <div class="control-adjusments-row">
-                    <label for="particle_count">Particle Count</label>
+                    <label for="particle_count">
+                        <span>Particle Count</span>
+                        <span id="particle_count_value">
+                            <!-- Value added by JS -->
+                        </span>
+                    </label>
                     <input type="range" id="particle_count">
-                    <span id="particle_count_value"></span>
                 </div>
                 <div class="control-adjusments-row">
-                    <label for="gravity">Gravity</label>
+                    <label for="gravity">
+                        <span>Gravity</span>
+                        <span id="gravity_value">
+                            <!-- Value added by JS -->
+                        </span>
+                    </label>
                     <input type="range" id="gravity">
-                    <span id="gravity_value"></span>
+                </div>
+                <div class="control-adjusments-row">
+                    <label for="particle-bg">Particle Background</label>
+                    <select name="particle-bg" id="particle-bg">
+                        <option value="bg-orange">Orange</option>
+                        <option value="bg-green">Green</option>
+                        <option value="bg-red">Red</option>
+                        <option value="bg-blue">Blue</option>
+                        <option value="bg-tennis">Tennis Ball</option>
+                        <option value="bg-cricket">Cricket Ball</option>
+                    </select>
                 </div>
             </div>
             <div class="control-buttons">

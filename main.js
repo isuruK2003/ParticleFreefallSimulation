@@ -1,6 +1,7 @@
 let particles = [];
 let particleCount = 50;
 let animationIds = [];
+let particle_bg = document.getElementById("particle-bg").value;
 
 const particleCountElem = document.getElementById("particle_count");
 
@@ -12,7 +13,8 @@ particleCountElem.addEventListener("change", () => {
 function makeParticle(id, x, y) {
     const particle = document.createElement("div");
     particle.id = id;
-    particle.className = "particle";
+    particle.classList.add("particle");
+    particle.classList.add(particle_bg);
     particle.style.left = `${x}%`;
     particle.style.bottom = `${y}%`;
     document.querySelector(".container").appendChild(particle);
@@ -111,6 +113,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
     document.getElementById("rearrange").addEventListener("click", () => {
         rearrangeParticles();
+    });
+
+    document.getElementById("particle-bg").addEventListener("change", () => {
+        particle_bg = document.getElementById("particle-bg").value;
+        for (let particleId of particles) {
+            document.getElementById(particleId).classList = [];
+            document.getElementById(particleId).classList.add("particle");
+            document.getElementById(particleId).classList.add(particle_bg);
+        }
     });
 
     makeParticles();

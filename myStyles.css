@@ -3,6 +3,10 @@ body {
     background-color: #f5f5f5;
 }
 
+select {
+    font: inherit;
+}
+
 .interface {
     display: flex;
     align-items: center;
@@ -33,12 +37,28 @@ body {
 /* Particle */
 
 .particle {
-    width: 10px;
-    height: 10px;
+    width: 15px;
+    height: 15px;
     border: 1px solid #000;
     border-radius: 50%;
-    background-color: #f80;
     position: absolute;
+}
+
+.bg-orange {background-color: #f80;}
+.bg-red {background-color: #fa8570;}
+.bg-green {background-color: #0ea60e;}
+.bg-blue {background-color: rgb(76, 128, 223);}
+.bg-tennis {
+    background-image: url('bg/tennis-ball.png');
+    background-position: center;
+    background-size: cover;
+    border: 1px solid #eee;
+}
+.bg-cricket {
+    background-image: url('bg/cricket-ball.png');
+    background-position: center;
+    background-size: cover;
+    border: 0.5px solid #ffdcdc;
 }
 
 /* Controls Section */
