@@ -1,20 +1,16 @@
 let particles = [];
-let particleCount = 50;
 let animationIds = [];
-let particle_bg = document.getElementById("particle-bg").value;
 
-const particleCountElem = document.getElementById("particle_count");
-
-particleCountElem.addEventListener("change", () => {
-    particleCount = particleCountElem.value;
-    makeParticles();
-});
+let particleBg = document.getElementById("particle-bg").value;
+let particleCount = parseFloat(document.getElementById("particle-count").value);
+let gravity = parseFloat(document.getElementById("gravity").value);
+let restitution = parseFloat(document.getElementById("restitution").value);
 
 function makeParticle(id, x, y) {
     const particle = document.createElement("div");
     particle.id = id;
     particle.classList.add("particle");
-    particle.classList.add(particle_bg);
+    particle.classList.add(particleBg);
     particle.style.left = `${x}%`;
     particle.style.bottom = `${y}%`;
     document.querySelector(".container").appendChild(particle);
@@ -31,13 +27,12 @@ function moveParticle(id, dx, dy) {
 
 function updatePosition(id) {
     let vy = 0;
-    const loss = 0.1;
-    const ay = -0.1 * (parseFloat(document.getElementById("gravity").value) / 50);
-
+    let ay = -0.1 * (gravity / 50);
+    
     const particleElem = document.getElementById(id);
     const particleBottom = parseFloat(particleElem.style.bottom);
-    let vmax = Math.sqrt(Math.abs(2 * ay * particleBottom));
-
+    let vmax = Math.sqrt(Math.abs(2 * ay * particleBottom)); // v = sqrt(2gh)
+    
     function update() {
         const animationId = requestAnimationFrame(update);
         animationIds.push(animationId);
@@ -46,7 +41,7 @@ function updatePosition(id) {
 
         if (particleBottom <= 0) {
             vy = vmax;
-            vmax -= loss;
+            vmax -= vmax * (restitution / 100);
         }
         if (vmax <= 0) {
             cancelAnimationFrame(animationId);
@@ -57,15 +52,12 @@ function updatePosition(id) {
     update();
 }
 
-function moveAllOnce(particles) {
+function move(particles) {
+    updateControlsAbility(true);
+    // move all particles at once
     particles.forEach(particle => {
         updatePosition(particle);
     });
-}
-
-function move(particles) {
-    updateControlsAbility(true); // Disable controls when the animation starts
-    moveAllOnce(particles);
 }
 
 function makeParticles() {
@@ -103,8 +95,15 @@ function updateControlsAbility(disable) {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
+
+    document.getElementById("particle-count-value").innerHTML = particleCount;
+    document.getElementById("gravity-value").innerHTML = gravity;
+    document.getElementById("restitution-value").innerHTML = restitution;
+
     document.getElementById("start").addEventListener("click", () => {
-        move(particles);
+        if (animationIds.length == 0) {
+            move(particles);
+        }
     });
 
     document.getElementById("stop").addEventListener("click", () => {
@@ -115,12 +114,28 @@ document.addEventListener("DOMContentLoaded", () => {
         rearrangeParticles();
     });
 
+    document.getElementById("particle-count").addEventListener("change", () => {
+        particleCount = parseFloat(document.getElementById("particle-count").value);
+        document.getElementById("particle-count-value").innerHTML = particleCount;
+        makeParticles();
+    });
+
+    document.getElementById("gravity").addEventListener("change", () => {
+        gravity = parseFloat(document.getElementById("gravity").value);
+        document.getElementById("gravity-value").innerHTML = gravity;
+    });
+
+    document.getElementById("restitution").addEventListener("change", () => {
+        restitution = parseFloat(document.getElementById("restitution").value);
+        document.getElementById("restitution-value").innerHTML = restitution;
+    });
+
     document.getElementById("particle-bg").addEventListener("change", () => {
-        particle_bg = document.getElementById("particle-bg").value;
+        particleBg = document.getElementById("particle-bg").value;
         for (let particleId of particles) {
             document.getElementById(particleId).classList = [];
             document.getElementById(particleId).classList.add("particle");
-            document.getElementById(particleId).classList.add(particle_bg);
+            document.getElementById(particleId).classList.add(particleBg);
         }
     });
 

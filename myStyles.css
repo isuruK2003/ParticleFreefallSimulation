@@ -13,8 +13,7 @@ select {
     justify-content: center;
     height: 90vh;
     flex-wrap: wrap;
-    margin-left: auto;
-    margin-right: auto;
+    margin: 1rem auto;
     max-width: 1250px;
 }
 
@@ -30,8 +29,9 @@ select {
     border: 1px solid #000;
     position: relative;
     overflow: hidden;
-    margin: 0 auto;
+    margin: 0.5rem auto;
     box-sizing: border-box;
+
 }
 
 /* Particle */
@@ -67,7 +67,7 @@ select {
 /* Controls Section */
 
 .controls {
-    margin: 0 auto;
+    margin: 0.5rem auto;
     background-color: #fff;
     width: 100%;
     max-width: 600px;
