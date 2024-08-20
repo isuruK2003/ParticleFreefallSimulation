@@ -90,6 +90,11 @@ select {
     margin: 1rem 0;
 }
 
+@media only screen and (max-width: 600px) {
+    .control-adjusments-row {
+        grid-template-columns: auto;
+    }
+  }
 /* Control Buttons */
 
 .control-buttons {
