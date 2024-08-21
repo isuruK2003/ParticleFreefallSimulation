@@ -1,6 +1,6 @@
 body {
     font-family: 'Courier New', Courier, monospace;
-    background-color: #f5f5f5;
+    background-color: #13182B;
 }
 
 select {
@@ -20,7 +20,7 @@ select {
 /* Particle Container */
 
 .container {
-    background-color: #fff;
+    background-color: #000;
     max-width: 600px;
     max-height: 400px;
     width: 100%;
@@ -49,8 +49,10 @@ select {
     background-color: #333;
     border: 1px solid #fff;
 }
-.bg-green {background-color: #0ea60e;}
-.bg-blue {background-color: rgb(76, 128, 223);}
+.bg-white {
+    background-color: #fff;
+    border: 1px solid #1f1f1f;
+}
 .bg-tennis {
     background-image: url('bg/tennis-ball.png');
     background-position: center;
@@ -68,7 +70,8 @@ select {
 
 .controls {
     margin: 0.5rem auto;
-    background-color: #fff;
+    background-color: #222;
+    color: #fff;
     width: 100%;
     max-width: 600px;
     padding: 1rem;
