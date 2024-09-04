@@ -94,50 +94,83 @@ function updateControlsAbility(disable) {
     }
 }
 
-document.addEventListener("DOMContentLoaded", () => {
+// UI Related:
 
+let start_button = document.getElementById("start");
+let stop_button = document.getElementById("stop");
+let reset_button = document.getElementById("rearrange");
+
+function start() {
+    move(particles);
+    start_button.style.display = "none";
+    stop_button.style.display = "block";
+    reset_button.style.display = "none";
+}
+
+function stop() {
+    stopAnimations();
+    start_button.style.display = "block";
+    stop_button.style.display = "none";
+    reset_button.style.display = "block";
+}
+
+function reset() {
+    rearrangeParticles();
+    start_button.style.display = "block";
+    stop_button.style.display = "none";
+    reset_button.style.display = "none";
+}
+
+// Initializing the values of span elements that shows values of range inputs
+document.getElementById("particle-count-value").innerHTML = particleCount;
+document.getElementById("gravity-value").innerHTML = gravity;
+document.getElementById("restitution-value").innerHTML = restitution;
+
+// Binding event listners to buttons:
+
+start_button.addEventListener("click", () => {
+    if (animationIds.length == 0) {
+        start();
+    }
+});
+
+stop_button.addEventListener("click", () => {
+    stop();
+});
+
+reset_button.addEventListener("click", () => {
+    reset();
+});
+
+// Binding event listners to range inputs:
+
+document.getElementById("particle-count").addEventListener("change", () => {
+    particleCount = parseFloat(document.getElementById("particle-count").value);
     document.getElementById("particle-count-value").innerHTML = particleCount;
+    makeParticles();
+});
+
+document.getElementById("gravity").addEventListener("change", () => {
+    gravity = parseFloat(document.getElementById("gravity").value);
     document.getElementById("gravity-value").innerHTML = gravity;
+});
+
+document.getElementById("restitution").addEventListener("change", () => {
+    restitution = parseFloat(document.getElementById("restitution").value);
     document.getElementById("restitution-value").innerHTML = restitution;
+});
 
-    document.getElementById("start").addEventListener("click", () => {
-        if (animationIds.length == 0) {
-            move(particles);
-        }
-    });
+document.getElementById("particle-bg").addEventListener("change", () => {
+    particleBg = document.getElementById("particle-bg").value;
+    for (let particleId of particles) {
+        document.getElementById(particleId).classList = [];
+        document.getElementById(particleId).classList.add("particle");
+        document.getElementById(particleId).classList.add(particleBg);
+    }
+});
 
-    document.getElementById("stop").addEventListener("click", () => {
-        stopAnimations();
-    });
+// Script Execution:
 
-    document.getElementById("rearrange").addEventListener("click", () => {
-        rearrangeParticles();
-    });
-
-    document.getElementById("particle-count").addEventListener("change", () => {
-        particleCount = parseFloat(document.getElementById("particle-count").value);
-        document.getElementById("particle-count-value").innerHTML = particleCount;
-        makeParticles();
-    });
-
-    document.getElementById("gravity").addEventListener("change", () => {
-        gravity = parseFloat(document.getElementById("gravity").value);
-        document.getElementById("gravity-value").innerHTML = gravity;
-    });
-
-    document.getElementById("restitution").addEventListener("change", () => {
-        restitution = parseFloat(document.getElementById("restitution").value);
-        document.getElementById("restitution-value").innerHTML = restitution;
-    });
-
-    document.getElementById("particle-bg").addEventListener("change", () => {
-        particleBg = document.getElementById("particle-bg").value;
-        for (let particleId of particles) {
-            document.getElementById(particleId).classList = [];
-            document.getElementById(particleId).classList.add("particle");
-            document.getElementById(particleId).classList.add(particleBg);
-        }
-    });
-
+document.addEventListener("DOMContentLoaded", () => {
     makeParticles();
 });

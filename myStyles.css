@@ -20,7 +20,7 @@ select {
 /* Particle Container */
 
 .container {
-    background-color: #000;
+    background-color: #111;
     max-width: 600px;
     max-height: 400px;
     width: 100%;
@@ -44,21 +44,27 @@ select {
     position: absolute;
 }
 
-.bg-orange {background-color: #f80;}
+.bg-orange {
+    background-color: #f80;
+}
+
 .bg-black {
     background-color: #333;
     border: 1px solid #fff;
 }
+
 .bg-white {
     background-color: #fff;
     border: 1px solid #1f1f1f;
 }
+
 .bg-tennis {
     background-image: url('bg/tennis-ball.png');
     background-position: center;
     background-size: cover;
-    border: 1px solid #33333375;
+    border: 1px solid #000;
 }
+
 .bg-cricket {
     background-image: url('bg/cricket-ball.png');
     background-position: center;
